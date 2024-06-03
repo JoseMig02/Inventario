@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using inventarioAPI.Data;
 
@@ -11,9 +12,11 @@ using inventarioAPI.Data;
 namespace inventarioAPI.Migrations
 {
     [DbContext(typeof(InventarioContext))]
-    partial class InventarioContextModelSnapshot : ModelSnapshot
+    [Migration("20240603153557_relaciones")]
+    partial class relaciones
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,6 +41,12 @@ namespace inventarioAPI.Migrations
 
                     b.Property<string>("Estado")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaActualizacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
@@ -67,13 +76,21 @@ namespace inventarioAPI.Migrations
                     b.Property<int>("Existencia")
                         .HasColumnType("int");
 
-                    b.Property<int>("IdTipoInventario")
+                    b.Property<DateTime>("FechaActualizacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdentificadorTipoInventario")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdentificadorTipoInventario");
 
                     b.ToTable("Articulos");
                 });
@@ -89,6 +106,9 @@ namespace inventarioAPI.Migrations
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("FechaUltimaActualizacion")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("IdAlmacen")
                         .HasColumnType("int");
 
@@ -96,6 +116,10 @@ namespace inventarioAPI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdAlmacen");
+
+                    b.HasIndex("IdArticulo");
 
                     b.ToTable("ExistenciasXAlmacenes");
                 });
@@ -116,6 +140,12 @@ namespace inventarioAPI.Migrations
 
                     b.Property<string>("Estado")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaActualizacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Nombre")
                         .HasColumnType("nvarchar(max)");
@@ -153,7 +183,67 @@ namespace inventarioAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IdArticulo");
+
                     b.ToTable("Transacciones");
+                });
+
+            modelBuilder.Entity("inventarioAPI.Models.Articulo", b =>
+                {
+                    b.HasOne("inventarioAPI.Models.TipoInventario", "TipoInventario")
+                        .WithMany("Articulos")
+                        .HasForeignKey("IdentificadorTipoInventario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TipoInventario");
+                });
+
+            modelBuilder.Entity("inventarioAPI.Models.ExistenciasXAlmacen", b =>
+                {
+                    b.HasOne("inventarioAPI.Models.Almacen", "Almacen")
+                        .WithMany("ExistenciasXAlmacenes")
+                        .HasForeignKey("IdAlmacen")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("inventarioAPI.Models.Articulo", "Articulo")
+                        .WithMany("ExistenciasXAlmacenes")
+                        .HasForeignKey("IdArticulo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Almacen");
+
+                    b.Navigation("Articulo");
+                });
+
+            modelBuilder.Entity("inventarioAPI.Models.Transaccion", b =>
+                {
+                    b.HasOne("inventarioAPI.Models.Articulo", "Articulo")
+                        .WithMany("Transacciones")
+                        .HasForeignKey("IdArticulo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Articulo");
+                });
+
+            modelBuilder.Entity("inventarioAPI.Models.Almacen", b =>
+                {
+                    b.Navigation("ExistenciasXAlmacenes");
+                });
+
+            modelBuilder.Entity("inventarioAPI.Models.Articulo", b =>
+                {
+                    b.Navigation("ExistenciasXAlmacenes");
+
+                    b.Navigation("Transacciones");
+                });
+
+            modelBuilder.Entity("inventarioAPI.Models.TipoInventario", b =>
+                {
+                    b.Navigation("Articulos");
                 });
 #pragma warning restore 612, 618
         }
