@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using inventarioAPI.Data;
 
@@ -11,9 +12,11 @@ using inventarioAPI.Data;
 namespace inventarioAPI.Migrations
 {
     [DbContext(typeof(InventarioContext))]
-    partial class InventarioContextModelSnapshot : ModelSnapshot
+    [Migration("20240605183045_tablashhhfefe")]
+    partial class tablashhhfefe
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,11 +27,11 @@ namespace inventarioAPI.Migrations
 
             modelBuilder.Entity("inventarioAPI.Models.Almacen", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
@@ -49,11 +52,11 @@ namespace inventarioAPI.Migrations
 
             modelBuilder.Entity("inventarioAPI.Models.Articulo", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("CostoUnitario")
                         .HasColumnType("decimal(18,2)");
@@ -80,11 +83,11 @@ namespace inventarioAPI.Migrations
 
             modelBuilder.Entity("inventarioAPI.Models.ExistenciasXAlmacen", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
@@ -127,11 +130,11 @@ namespace inventarioAPI.Migrations
 
             modelBuilder.Entity("inventarioAPI.Models.Transaccion", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");

@@ -4,16 +4,29 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// Add services to the container.
 
+// Configure DbContext
 builder.Services.AddDbContext<InventarioContext>(options =>
-options.UseSqlServer("name= DefaultConnection"));
+    options.UseSqlServer("name=DefaultConnection"));
+
+// Add authentication
 builder.Services.AddAuthentication();
+
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:4200") // Angular app URL
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,6 +38,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseRouting();
+
+// Enable the CORS policy
+app.UseCors("AllowSpecificOrigin");
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
