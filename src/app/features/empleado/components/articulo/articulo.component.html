@@ -1,0 +1,91 @@
+<p-toast preventOpenDuplicates="true"></p-toast>
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <div class="my-2">
+            <button pButton pRipple label="Nuevo Artículo" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+          </div>
+        </ng-template>
+      </p-toolbar>
+
+      <p-table #dt [value]="articulos" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" responsiveLayout="scroll" [(selection)]="selectedArticulos" selectionMode="multiple" [dataKey]="'id'">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">Gestión de Artículos</h5>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+            <th>Descripción</th>
+            <th pSortableColumn="estado">Estado <p-sortIcon field="estado"></p-sortIcon></th>
+            <th pSortableColumn="idTipoInventario">Tipo de Inventario <p-sortIcon field="idTipoInventario"></p-sortIcon></th>
+            <th>Costo unitario</th>
+            <th>Cantidad</th>
+            <th>Acciones</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-articulo>
+          <tr>
+            <td>{{ articulo.nombre }}</td>
+            <td>{{ articulo.descripcion }}</td>
+            <td><p-tag [value]="articulo.estado === 'activo' ? 'Activo' : 'Inactivo'" [severity]="articulo.estado === 'activo' ? 'success' : 'danger'"></p-tag></td>
+            <td>{{ articulo.idTipoInventario }}</td>
+            <td>{{ articulo.costoUnitario }}</td>
+            <td>{{ articulo.existencia}}</td>
+            <td>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editArticulo(articulo)"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteArticulo(articulo.id)"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <p-dialog [formGroup]="articuloForm" [(visible)]="displayDialog" [style]="{width: '450px'}" header="Detalles del Artículo" [modal]="true" [closable]="false" [dismissableMask]="true" class="p-fluid">
+      <div class="field">
+        <label for="nombre">Nombre</label>
+        <input type="text" formControlName="nombre" pInputText id="nombre" required autofocus />
+        <div *ngIf="articuloForm.get('nombre')?.invalid && articuloForm.get('nombre')?.touched" class="text-red-600 text-sm mt-1">Nombre es requerido</div>
+      </div>
+      <div class="field">
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" formControlName="descripcion" pInputTextarea required rows="3" cols="20"></textarea>
+        <div *ngIf="articuloForm.get('descripcion')?.invalid && articuloForm.get('descripcion')?.touched" class="text-red-600 text-sm mt-1">Descripción es requerida</div>
+      </div>
+      <div class="field">
+        <label for="estado">Estado</label>
+        <p-dropdown [options]="estados" formControlName="estado" optionLabel="label" optionValue="value" placeholder="Seleccionar Estado"></p-dropdown>
+        <div *ngIf="articuloForm.get('estado')?.invalid && articuloForm.get('estado')?.touched" class="text-red-600 text-sm mt-1">Estado es requerido</div>
+      </div>
+      <div class="field">
+        <label for="idTipoInventario">Tipo de Inventario</label>
+        <p-dropdown [options]="tiposInventario" formControlName="idTipoInventario" optionLabel="nombre" optionValue="id" placeholder="Seleccionar Tipo de Inventario"></p-dropdown>
+        <div *ngIf="articuloForm.get('idTipoInventario')?.invalid && articuloForm.get('idTipoInventario')?.touched" class="text-red-600 text-sm mt-1">Tipo de Inventario es requerido</div>
+      </div>
+      <div class="p-field">
+        <label for="costoUnitario">Costo unitario</label>
+        <p-inputNumber id="costoUnitario" formControlName="costoUnitario" [useGrouping]="false" ></p-inputNumber>
+        <div *ngIf="articuloForm.get('costoUnitario')?.invalid && articuloForm.get('costoUnitario')?.touched" class="text-red-600 text-sm mt-1">Costo unitario  es requerido</div>
+      </div>
+      <div class="p-field">
+        <label for="ano">Existencia</label>
+        <p-inputNumber id="existencia" formControlName="existencia" [useGrouping]="false"  ></p-inputNumber>
+        <div *ngIf="articuloForm.get('existencia')?.invalid && articuloForm.get('existencia')?.touched" class="text-red-600 text-sm mt-1">Tipo de Inventario es requerido</div>
+      </div>
+      
+  
+      <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveArticulo()"></button>
+      </ng-template>
+    </p-dialog>
+  </div>
+</div>
+
+
+<p-confirmDialog></p-confirmDialog>
+

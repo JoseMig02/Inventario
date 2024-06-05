@@ -2,21 +2,21 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppLayoutComponent } from './layout/app.layout.component';
 import { NofoundComponent } from './shared/components/nofound/nofound.component';
-import { MarcaListComponent } from './features/empleado/components/marca-list/marca-list.component';
-import { TipoVehiculoComponent } from './features/empleado/components/tipovehiculo/tipovehiculo.component';
-import { TipoCombustibleComponent } from './features/empleado/components/tipo-combustible/tipo-combustible.component';
-import { ModeloComponent } from './features/empleado/components/modelo/modelo.component';
+
 import { SigninComponent } from './features/empleado/components/signin/signin.component';
-import { VehiculoComponent } from './features/empleado/components/vehiculo/vehiculo.component';
+
 import { EmpleadoComponent } from './features/empleado/components/empleado/empleado.component';
-import { InspeccionComponent } from './features/empleado/components/inspeccion/inspeccion.component';
-import { ClienteComponent } from './features/empleado/components/cliente/cliente.component';
-import { RentaDevolucionComponent } from './features/empleado/components/renta-devolucion/renta-devolucion.component';
+
+
 import { AuthGuard } from './guards/auth-guard.guard';
 import { AdminGuard } from './guards/admin-guard.guard';
 import { OnlyAdminGuard } from './guards/admin.guard';
 import { AccessComponent } from './shared/components/access/access.component';
-import { ReporteComponent } from './features/empleado/components/reporte/reporte.component';
+
+import { TipoInventarioComponent } from './features/empleado/components/tipo-inventario/tipo-inventario.component';
+import { AlmacenComponent } from './features/empleado/components/almacen/almacen.component';
+import { ArticuloComponent } from './features/empleado/components/articulo/articulo.component';
+import { TransaccioComponent } from './features/empleado/components/transaccio/transaccio.component';
 
 
 const routes: Routes = [
@@ -25,15 +25,14 @@ const routes: Routes = [
     component: AppLayoutComponent,
     canActivate: [AuthGuard, AdminGuard], // Protege todas las rutas bajo este layout
     children: [
-      { path: 'empleado/marcas', component: MarcaListComponent },
-      { path: 'empleado/tiposVehiculos', component: TipoVehiculoComponent },
-      { path: 'empleado/tiposCombustible', component: TipoCombustibleComponent },
-      { path: 'empleado/modelos', component: ModeloComponent },
-      { path: 'empleado/vehiculos', component: VehiculoComponent },
+
+     
       { path: 'empleado/empleados', component: EmpleadoComponent, canActivate:[OnlyAdminGuard] }, // Requiere ser administrador
-      { path: 'empleado/inspecciones', component: InspeccionComponent },
-      { path: 'empleado/cliente', component: ClienteComponent },
-      { path: 'empleado/rentaDevolucion', component: RentaDevolucionComponent },
+      { path: 'empleado/Articulos', component: ArticuloComponent }, // Requiere ser administrador
+     
+      { path: 'empleado/Tipoinventario', component: TipoInventarioComponent },
+      { path: 'empleado/Almacen', component: AlmacenComponent },
+      { path: 'empleado/Transacciones', component: TransaccioComponent },
       // { path: 'empleado/reportes', component: ReporteComponent },
       // Otras rutas dentro del layout
     ]

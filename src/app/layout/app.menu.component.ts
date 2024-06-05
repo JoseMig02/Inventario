@@ -28,25 +28,24 @@ export class AppMenuComponent implements OnInit {
                 ]
             },
             {
-                label: 'UI Components',
+                label: 'Menu',
                 items: [
-                    { label: 'Marcas', icon: 'pi pi-fw pi-tags', routerLink: ['/empleado/marcas'] },
-                    { label: 'Tipos de vehículos', icon: 'pi pi-fw pi-table', routerLink: ['/empleado/tiposVehiculos'] },
-                    { label: 'Tipos de combustibles', icon: 'pi pi-fw pi-truck', routerLink: ['/empleado/tiposCombustible'] },
-                    { label: 'Modelos', icon: 'pi pi-fw pi-cog', routerLink: ['/empleado/modelos'] },
-                    { label: 'Vehículos', icon: 'pi pi-fw pi-car', routerLink: ['empleado/vehiculos'] },
-                    { label: 'Inspecciones', icon: 'pi pi-fw pi-search-plus', routerLink: ['/empleado/inspecciones'] },
-                    { label: 'Clientes', icon: 'pi pi-fw pi-user-plus', routerLink: ['/empleado/cliente'] },
-                    { label: 'Renta y devolución', icon: 'pi pi-fw pi-share-alt', routerLink: ['/empleado/rentaDevolucion'] }
+                   
+                    { label: 'Tipo de inventario', icon: 'pi pi-fw pi-share-alt', routerLink: ['/empleado/Tipoinventario'] },
+                    { label: 'Almacenes', icon: 'pi pi-fw pi-share-alt', routerLink: ['/empleado/Almacen'] },
+                    { label: 'Articulos', icon: 'pi pi-fw pi-share-alt', routerLink: ['/empleado/Articulos'] },
+                    { label: 'Transacciones', icon: 'pi pi-fw pi-share-alt', routerLink: ['/empleado/Transacciones'] }
+                    
+                    
                 ]
             }
         ];
 
         // Si el usuario es administrador, agregar el ítem de Empleados
-        if (esAdmin) {
-            this.model[1].items.push(
-                { label: 'Empleados', icon: 'pi pi-fw pi-users', routerLink: ['/empleado/empleados'] }
-            );
-        }
+        // if (esAdmin) {
+        //     this.model[1].items.push(
+        //         { label: 'Empleados', icon: 'pi pi-fw pi-users', routerLink: ['/empleado/empleados'] }
+        //     );
+        // }
     }
 }

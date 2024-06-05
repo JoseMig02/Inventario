@@ -16,8 +16,7 @@ import { SigninComponent } from '../components/signin/signin.component';
 import { PasswordModule } from 'primeng/password';
 import { CheckboxModule } from 'primeng/checkbox';
 import { HttpClientModule } from '@angular/common/http';
-import { MarcaListComponent } from '../components/marca-list/marca-list.component';
-import { MessagesModule } from 'primeng/messages';
+
 
 import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
@@ -27,32 +26,33 @@ import { RatingModule } from 'primeng/rating';
 import { ToolbarModule } from 'primeng/toolbar';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { TipoVehiculoComponent } from '../components/tipovehiculo/tipovehiculo.component';
-import { TipoCombustibleComponent } from '../components/tipo-combustible/tipo-combustible.component';
-import { ModeloComponent } from '../components/modelo/modelo.component';
-import { VehiculoComponent } from '../components/vehiculo/vehiculo.component';
+
+
+
 import { EmpleadoComponent } from '../components/empleado/empleado.component';
-import { InspeccionComponent } from '../components/inspeccion/inspeccion.component';
+
 import { PanelModule } from 'primeng/panel';
-import { ClienteComponent } from '../components/cliente/cliente.component';
-import { RentaDevolucionComponent } from '../components/renta-devolucion/renta-devolucion.component';
+
 import { ImageModule } from 'primeng/image';
-import { ReporteComponent } from '../components/reporte/reporte.component';
+
+import { TipoInventarioComponent } from '../components/tipo-inventario/tipo-inventario.component';
+import { AlmacenComponent } from '../components/almacen/almacen.component';
+import { ArticuloComponent } from '../components/articulo/articulo.component';
+import { TransaccioComponent } from '../components/transaccio/transaccio.component';
 
 @NgModule({
   declarations: [
     SignupComponent,
     SigninComponent,
-    MarcaListComponent,
-    TipoVehiculoComponent,
-    TipoCombustibleComponent,
-    ModeloComponent,
-    VehiculoComponent,
+ 
     EmpleadoComponent,
-    InspeccionComponent,
-    ClienteComponent,
-    RentaDevolucionComponent,
-    ReporteComponent
+ArticuloComponent,
+
+   
+    TipoInventarioComponent,
+    AlmacenComponent,
+    TransaccioComponent
+
 
 
   ],
@@ -86,7 +86,7 @@ import { ReporteComponent } from '../components/reporte/reporte.component';
 
 
 ],
-exports: [MarcaListComponent,ToastModule],
+exports: [ToastModule],
   providers: [MessageService,ConfirmationService]
 })
 export class EmpleadoModule { }

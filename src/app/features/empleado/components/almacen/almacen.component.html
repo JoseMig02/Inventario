@@ -1,0 +1,83 @@
+<p-toast preventOpenDuplicates="true"></p-toast>
+
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+    
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <div class="my-2">
+            <button pButton pRipple label="Nuevo Almacén" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+          </div>
+        </ng-template>
+      </p-toolbar>
+
+      <p-table #dt [value]="almacenes" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" responsiveLayout="scroll"  selectionMode="multiple" [dataKey]="'id'">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">Gestión de Almacenes</h5>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+            <th pSortableColumn="descripcion">Descripción <p-sortIcon field="descripcion"></p-sortIcon></th>
+            <th pSortableColumn="estado">Estado <p-sortIcon field="estado"></p-sortIcon></th>
+            <th pSortableColumn="direccion">Dirección <p-sortIcon field="direccion"></p-sortIcon></th>
+            <th>Acciones</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-almacen>
+          <tr>
+            <td>{{ almacen.nombre }}</td>
+            <td>{{ almacen.descripcion }}</td>
+            <td><p-tag [value]="almacen.estado === 'Activo' ? 'Activo' : 'Inactivo'" [severity]="almacen.estado === 'Activo' ? 'success' : 'danger'"></p-tag></td>
+            <td>{{ almacen.direccion }}</td>
+            <td>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)=" editAlmacen(almacen)"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteAlmacen(almacen.id)"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <p-dialog  [formGroup]="almacenForm" [(visible)]="displayDialog" [style]="{width: '450px'}" header="Detalles del Almacén" [modal]="true" [closable]="false" [dismissableMask]="true" class="p-fluid">
+      
+    
+        <div class="field">
+            <label for="nombre">Nombre</label>
+            <input type="text" formControlName="nombre" pInputText id="nombre" required autofocus />
+            <div *ngIf="almacenForm.get('nombre')?.invalid && almacenForm.get('nombre')?.touched" class="text-red-600 text-sm mt-1">Nombre es requerido</div>
+        </div>
+        <div class="field">
+          <label for="estado">Estado</label>
+          <p-dropdown [options]="estados" formControlName="estado" optionLabel="label" optionValue="value" placeholder="Seleccionar Estado"></p-dropdown>
+          <div *ngIf="almacenForm.get('estado')?.invalid && almacenForm.get('estado')?.touched" class="text-red-600 text-sm mt-1">Estado es requerido</div>
+        </div>
+     
+        <div class="field">
+          <label for="descripcion">Descripción</label>
+          <textarea id="descripcion" formControlName="descripcion" pInputTextarea required rows="3" cols="20"></textarea>
+          <div *ngIf="almacenForm.get('descripcion')?.invalid && almacenForm.get('descripcion')?.touched" class="text-red-600 text-sm mt-1">Descripción es requerida</div>
+        </div>
+        <div class="field">
+            <label for="direccion">Direccion</label>
+            <input type="text" formControlName="direccion" pInputText id="direccion" required autofocus />
+            <div *ngIf="almacenForm.get('direccion')?.invalid && almacenForm.get('direccion')?.touched" class="text-red-600 text-sm mt-1">direccion es requerido</div>
+        </div>
+
+        <ng-template pTemplate="footer">
+            <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+            <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveAlmacen()"></button>
+          </ng-template>
+        
+      </p-dialog>
+    </div>
+  </div>
+  
+
+ 
+  <p-confirmDialog></p-confirmDialog>
+  
+

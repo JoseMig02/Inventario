@@ -1,0 +1,91 @@
+<p-toast preventOpenDuplicates="true"></p-toast>
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <div class="my-2">
+            <button pButton pRipple label="Nueva Transacción" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+          </div>
+        </ng-template>
+      </p-toolbar>
+
+      <p-table #dt [value]="transacciones" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" responsiveLayout="scroll"  selectionMode="single" [dataKey]="'id'">
+        <ng-template pTemplate="caption">
+          <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
+            <h5 class="m-0">Gestión de Transacciones</h5>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Tipo de Transacción</th>
+            <th>Artículo</th>
+            <th>Fecha</th>
+            <th>Cantidad</th>
+            <th>Costo</th>
+            <th>Observaciones</th>
+            <th>Acciones</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-transaccion>
+          <tr>
+            <td>{{ transaccion.tipoTransaccion }}</td>
+            <td>{{ transaccion.idArticulo }}</td>
+            <td>{{ transaccion.fecha |date}}</td>
+            <td>{{ transaccion.cantidad }}</td>
+            <td>{{ transaccion.costo }}</td>
+            <td>{{ transaccion.observaciones }}</td>
+            <td>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editTransaccion(transaccion)"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="deleteTransaccion(transaccion.id)"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <p-dialog [formGroup]="transaccionForm" [(visible)]="displayDialog" [style]="{width: '450px'}" header="Detalles de la Transacción" [modal]="true" [closable]="false" [dismissableMask]="true" class="p-fluid">
+      <div class="field">
+        <label for="tipoTransaccion">Tipo de Transacción</label>
+        <input type="text" formControlName="tipoTransaccion" pInputText id="tipoTransaccion" required autofocus />
+        <div *ngIf="transaccionForm.get('tipoTransaccion')?.invalid && transaccionForm.get('tipoTransaccion')?.touched" class="text-red-600 text-sm mt-1">Tipo de Transacción es requerido</div>
+      </div>
+      <div class="field">
+        <label for="idArticulo">Artículo</label>
+        <p-dropdown [options]="articulos" formControlName="idArticulo" optionLabel="nombre" optionValue="id" placeholder="Seleccionar Artículo"></p-dropdown>
+        <div *ngIf="transaccionForm.get('idArticulo')?.invalid && transaccionForm.get('idArticulo')?.touched" class="text-red-600 text-sm mt-1">Artículo es requerido</div>
+      </div>
+   
+      <div class="p-field">
+        <label for="fecha">Fecha</label>
+        <p-calendar id="fecha" formControlName="fecha" dateFormat="yy-mm-dd"></p-calendar>
+        <div *ngIf="transaccionForm.get('fecha')?.invalid && transaccionForm.get('fecha')?.touched" class="text-red-600 text-sm mt-1">
+          Fecha es requerido.
+        </div>
+      </div>
+      <div class="field">
+        <label for="cantidad">Cantidad</label>
+        <input type="number" formControlName="cantidad" pInputText id="cantidad" required />
+        <div *ngIf="transaccionForm.get('cantidad')?.invalid && transaccionForm.get('cantidad')?.touched" class="text-red-600 text-sm mt-1">Cantidad es requerida</div>
+      </div>
+      <div class="field">
+        <label for="costo">Costo</label>
+        <input type="number" formControlName="costo" pInputText id="costo" required />
+        <div *ngIf="transaccionForm.get('costo')?.invalid && transaccionForm.get('costo')?.touched" class="text-red-600 text-sm mt-1">Costo es requerido</div>
+      </div>
+      <div class="field">
+        <label for="observaciones">Observaciones</label>
+        <input type="text" formControlName="observaciones" pInputText id="observaciones" />
+      </div>
+  
+      <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-text" (click)="saveTransaccion()"></button>
+      </ng-template>
+    </p-dialog>
+  </div>
+</div>
+
+
+<p-confirmDialog></p-confirmDialog>
