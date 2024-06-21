@@ -17,13 +17,13 @@ import { TipoInventarioComponent } from './features/empleado/components/tipo-inv
 import { AlmacenComponent } from './features/empleado/components/almacen/almacen.component';
 import { ArticuloComponent } from './features/empleado/components/articulo/articulo.component';
 import { TransaccioComponent } from './features/empleado/components/transaccio/transaccio.component';
+import { ConsultasComponent } from './features/empleado/components/consultas/consultas.component';
 
 
 const routes: Routes = [
   {
     path: '',
     component: AppLayoutComponent,
-    canActivate: [AuthGuard, AdminGuard], // Protege todas las rutas bajo este layout
     children: [
 
      
@@ -33,6 +33,7 @@ const routes: Routes = [
       { path: 'empleado/Tipoinventario', component: TipoInventarioComponent },
       { path: 'empleado/Almacen', component: AlmacenComponent },
       { path: 'empleado/Transacciones', component: TransaccioComponent },
+      { path: 'empleado/consultas', component: ConsultasComponent },
       // { path: 'empleado/reportes', component: ReporteComponent },
       // Otras rutas dentro del layout
     ]

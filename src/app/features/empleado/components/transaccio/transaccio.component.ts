@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArticuloService } from '../../../../services/articulo.service';
 import { Transaccion } from '../../../../models/Transaccion'
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConsultasService } from '../../../../services/consultas.service';
 
 interface Estado {
   label: string;
@@ -24,6 +25,10 @@ export class TransaccioComponent implements OnInit {
   selectedArticulo: Articulo | undefined;
   estados: Estado[] | undefined;
   transacciones: Transaccion[] = [];
+    // Filters
+    filterArticuloId: number | undefined ;
+    filterFechaInicio: Date | null = null;
+    filterFechaFin: Date | null = null;
   
 
   constructor(
@@ -31,7 +36,8 @@ export class TransaccioComponent implements OnInit {
     private articuloService: ArticuloService,
     private transaccionService:TransaccionService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private consultasService: ConsultasService
   ) {
     this.transaccionForm = this.fb.group({
       id: [''],
@@ -118,5 +124,34 @@ export class TransaccioComponent implements OnInit {
   hideDialog(): void {
     this.displayDialog = false;
   }
+  // Método para filtrar transacciones
+  filterRentas(): void {
+    if (this.filterArticuloId) {
+      this.consultasService.filtrarPorArticulo(this.filterArticuloId).subscribe(
+        (data: Transaccion[]) => this.transacciones = data,
+        error => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al filtrar por articulo' })
+      );
+    } else if (this.filterFechaInicio && this.filterFechaFin) {
+      const fechaInicio = this.filterFechaInicio
+      const fechaFin = this.filterFechaFin
+      this.consultasService.filtrarPorRangoFechas(fechaInicio, fechaFin).subscribe(
+        (data: Transaccion[]) => this.transacciones = data,
+        error => this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al filtrar entre fechas' })
+      );
+    }  else {
+      this.messageService.add({ severity: 'error', summary: 'warn', detail: 'Filtros vacios' });
+      this.loadTransacciones(); // Cargar todas las transacciones si no hay filtros aplicados
+    }
+  }
+
+  // Método para limpiar filtros
+  clearFilters(): void {
+    this.filterArticuloId = undefined;
+    this.filterFechaInicio = null;
+    this.filterFechaFin = null;
+    this.loadTransacciones(); // Recargar las transacciones después de limpiar los filtros
+  }
+
+ 
 
 }

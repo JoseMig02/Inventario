@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CRX3yRzd5y5sf8kY9osUQB9P1xDi2e48xqJju1S+4gFf38GIY/n3ulgXDIXnXqrIhSa30pd3xZtOul2lUyqeLw==",
+  "dgSpecHash": "F1Z5r1ePP/0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\marti\\source\\repos\\inventarioAPI\\inventarioAPI\\inventarioAPI.csproj",
+  "projectFilePath": "C:\\Users\\marti\\Desktop\\Inventario\\inventarioAPI\\inventarioAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\marti\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\marti\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

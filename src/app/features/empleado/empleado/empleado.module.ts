@@ -39,6 +39,7 @@ import { TipoInventarioComponent } from '../components/tipo-inventario/tipo-inve
 import { AlmacenComponent } from '../components/almacen/almacen.component';
 import { ArticuloComponent } from '../components/articulo/articulo.component';
 import { TransaccioComponent } from '../components/transaccio/transaccio.component';
+import { ConsultasComponent } from '../components/consultas/consultas.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import { TransaccioComponent } from '../components/transaccio/transaccio.compone
  
     EmpleadoComponent,
 ArticuloComponent,
-
+ConsultasComponent,
    
     TipoInventarioComponent,
     AlmacenComponent,

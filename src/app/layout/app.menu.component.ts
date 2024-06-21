@@ -34,8 +34,9 @@ export class AppMenuComponent implements OnInit {
                     { label: 'Tipo de inventario', icon: 'pi pi-fw pi-share-alt', routerLink: ['/empleado/Tipoinventario'] },
                     { label: 'Almacenes', icon: 'pi pi-fw pi-share-alt', routerLink: ['/empleado/Almacen'] },
                     { label: 'Articulos', icon: 'pi pi-fw pi-share-alt', routerLink: ['/empleado/Articulos'] },
-                    { label: 'Transacciones', icon: 'pi pi-fw pi-share-alt', routerLink: ['/empleado/Transacciones'] }
-                    
+                    { label: 'Transacciones', icon: 'pi pi-fw pi-share-alt', routerLink: ['/empleado/Transacciones'] },
+                    { label: 'Consultas', icon: 'pi pi-fw pi-share-alt', routerLink: ['/empleado/consultas'] }
+                
                     
                 ]
             }

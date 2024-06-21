@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\marti\\source\\repos\\inventarioAPI\\inventarioAPI\\inventarioAPI.csproj": {}
+    "C:\\Users\\marti\\Desktop\\Inventario\\inventarioAPI\\inventarioAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\marti\\source\\repos\\inventarioAPI\\inventarioAPI\\inventarioAPI.csproj": {
+    "C:\\Users\\marti\\Desktop\\Inventario\\inventarioAPI\\inventarioAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\marti\\source\\repos\\inventarioAPI\\inventarioAPI\\inventarioAPI.csproj",
+        "projectUniqueName": "C:\\Users\\marti\\Desktop\\Inventario\\inventarioAPI\\inventarioAPI.csproj",
         "projectName": "inventarioAPI",
-        "projectPath": "C:\\Users\\marti\\source\\repos\\inventarioAPI\\inventarioAPI\\inventarioAPI.csproj",
+        "projectPath": "C:\\Users\\marti\\Desktop\\Inventario\\inventarioAPI\\inventarioAPI.csproj",
         "packagesPath": "C:\\Users\\marti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\marti\\source\\repos\\inventarioAPI\\inventarioAPI\\obj\\",
+        "outputPath": "C:\\Users\\marti\\Desktop\\Inventario\\inventarioAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -39,6 +39,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
