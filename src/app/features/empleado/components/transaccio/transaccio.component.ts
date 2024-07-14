@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Articulo } from '../../../../models/Articulo';
 import { TransaccionService } from '../../../../services/transaccion.service';
+import jsPDF from 'jspdf';
+import autoTable, { Column } from 'jspdf-autotable';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArticuloService } from '../../../../services/articulo.service';
@@ -151,7 +153,37 @@ export class TransaccioComponent implements OnInit {
     this.filterFechaFin = null;
     this.loadTransacciones(); // Recargar las transacciones después de limpiar los filtros
   }
-
+  convertJsonToPdf() {
+    const doc = new jsPDF('l', 'mm', 'a4');
+  
+    
+    const head = [['ID', 'Tipo Transacción', 'ID Artículo', 'Fecha', 'Cantidad', 'Costo', 'Observaciones']];
+    const data: any[] = []; 
+  
+    this.transacciones.forEach(transaccion => {
+      const formattedDate = transaccion.fecha.toString().split('T')[0]; 
+      const row: any[] = [
+        transaccion.id?.toString(), 
+        transaccion.tipoTransaccion,
+        transaccion.idArticulo.toString(),
+        formattedDate,
+        transaccion.cantidad.toString(),
+        transaccion.costo.toFixed(2), 
+        transaccion.observaciones
+      ];
+      data.push(row);
+    });
+  
+    autoTable(doc, {
+      head: head,
+      body: data,
+      didDrawCell: (data) => {
+      
+      }
+    });
+  
+    doc.save('transacciones.pdf'); 
+  }
  
 
 }
